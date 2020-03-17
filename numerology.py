@@ -95,8 +95,6 @@ calc_sum_t_year = digitcheck(str(pre_calc_sum_t_year))
 #----------------------
 
 
-
-
 pre_calc_sum_year = int(v_year[0]) + int(v_year[1]) + int(v_year[2]) + int(v_year[3])
 calc_sum_year = digitcheck(str(pre_calc_sum_year))
 
