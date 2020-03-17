@@ -29,6 +29,7 @@ alphabets = {
 #
 #         return total
 
+# https://stackoverflow.com/questions/44501933/numerology-how-to-shorten-code/44502584
 def numerology(word):
     return functools.reduce(
         lambda a, b: sum(int(digit) for digit in str(a + b)),
