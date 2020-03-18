@@ -43,6 +43,8 @@ def separate(sentence):
 
 word =input("Type your word: ") #since i am using python 3 to code this
 list = (separate(word))
+
+#Print each word result
 for i in list:
     print(numerology(i))
 # print (numerology(word))
