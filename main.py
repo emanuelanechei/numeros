@@ -105,6 +105,7 @@ def datecalc(string):
     return string
 
 
+
 #Cycle funtions
 
 # def cycle(datestring):
@@ -134,7 +135,7 @@ print("-- -- -- -- -- -- -- -- -- --")
 print()
 
 input_full_name = input("Type your full name: ")
-date_input = input("Escribe tu fecha de nacimiento en el formato: DD-MM-YYYY (sin Zeros ""0""): ")
+date_input = input("Escribe tu fecha de nacimiento en el formato: DD-MM-YYYY: ")
 birth_date = realdate(date_input)
 birth_dotw = dotw(birth_date)
 
@@ -144,46 +145,54 @@ v_year = str(birth_date.year)
 v_month = str(birth_date.strftime('%m'))
 v_day = str(birth_date.strftime('%d'))
 #----------------------
-
 redux_year = redux(v_year)
 redux_month = redux(v_month)
 redux_day = redux(v_day)
-
+#----------------------
 date_string = str(redux_year)+str(redux_month)+str(redux_day)
 birth_vibration = calsum(date_string)
+#----------------------
 
+#Today calculations
+#----------------------
+today_date = datetime.date.today()
+#----------------------
+
+#Consult Date calculations
+#----------------------
+
+
+#Name calculations
+#----------------------
 name_count = stringcount(input_full_name)
 interior_values = rem_consonants(input_full_name)
 exterior_values = rem_vowel(input_full_name)
-
-# choice = input("Do you want to consult a specific date?? (y/n): ")
-# choice = choice.upper()
-# if choice == 'Y':
-#     cross = PrintCross(person)
-#     cross.printCross()
-# else:
-#     pass
-
-
+#----------------------
 calc_name = cypher(input_full_name)
 calc_interior = cypher(interior_values)
 calc_exterior = cypher(exterior_values)
+#----------------------
 list_interior = calc_interior.split()
 list_exterior = calc_exterior.split()
+#----------------------
 interior_redux = topo(list_interior)
 exterior_redux = topo(list_exterior)
+#----------------------
 interior = calculin(interior_redux)
 exterior = calculin(exterior_redux)
+#----------------------
 intext = interior[0] + exterior[0]
-# calc_goals = [int(i) for i in str(intext)]
-# goals = sum([int(i) for i in str(calc_goals)])
+#----------------------
 goals = calsum(str(intext))
 
-
+#Consult Calculations
+# day, month, year = map(int, date_entry.split('-'))
+# consult_date = datetime.date(year, month, day)
 
 #Results
 print()
 print("-- Resultados de consulta --")
+print(f"{today_date}")
 print()
 print(f"Your name is: {input_full_name}")
 print(f"Your name contains {name_count} letters")
@@ -214,3 +223,13 @@ print(f"You where born on a: {birth_dotw}")
 # print(redux_day)
 # print(date_string)
 print(f"Your Vibration is: {birth_vibration}")
+
+#Consultation date input
+choice = input("Do you want to consult a specific date?? (y/n): ")
+choice = choice.upper()
+if choice == 'Y':
+    consult_date_input = input("Escribe la fecha de consulta: DD-MM-YYYY: ")
+else:
+    print(f"Thank you for your consult")
+
+#
