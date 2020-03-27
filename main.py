@@ -108,18 +108,24 @@ def datecalc(string):
 
 #Cycle funtions
 
-# def cycle(datestring):
-#     if (int(t_month) == 11) or (int(t_month) == 12):
-#         pre_today_year_cycle = int(birth_vibration) + int(calc_sum_t_year) + 1
-#         # print(f" Pre en NOV/DIC: {pre_today_year_cycle}")
-#         today_year_cycle = digitcheck(str(pre_today_year_cycle))
-#         print(f"From October {t_year} to October {t_year_plus}, your YEAR CYCLE is {today_year_cycle}  ")
-#     else:
-#         pre_today_year_cycle = int(birth_vibration) + int(calc_sum_t_year)
-#         # print(f" Pre no -> NOV/DIC: {pre_today_year_cycle}")
-#         today_year_cycle = digitcheck(str(pre_today_year_cycle))
-#         print(f"From October {t_year_minus} to October {t_year}, your YEAR CYCLE is {today_year_cycle}  ")
-#     pass
+def cycle(date, birth_vibration):
+    t_year = str(date.year)
+    redux_t_year = redux(t_year)
+    t_year_plus = int(t_year) + 1
+    t_year_minus = int(t_year) - 1
+    t_month = str(date.strftime('%m'))
+    t_day = str(date.strftime('%d'))
+    if (int(t_month) == 11) or (int(t_month) == 12):
+        pre_today_year_cycle = int(birth_vibration[0]) + int(redux_t_year) + 1
+        # print(f" Pre en NOV/DIC: {pre_today_year_cycle}")
+        today_year_cycle = redux(pre_today_year_cycle)
+        print(f"From October {t_year} to October {t_year_plus}, your YEAR CYCLE is {today_year_cycle}  ")
+    else:
+        pre_today_year_cycle = int(birth_vibration[0]) + int(redux_t_year)
+        # print(f" Pre no -> NOV/DIC: {pre_today_year_cycle}")
+        today_year_cycle = redux(pre_today_year_cycle)
+        print(f"From October {t_year_minus} to October {t_year}, your YEAR CYCLE is {today_year_cycle}  ")
+    pass
 
 
 
@@ -158,9 +164,15 @@ birth_vibration = calsum(date_string)
 today_date = datetime.date.today()
 #----------------------
 
-#Consult Date calculations
+#Cycle for today
 #----------------------
-
+# t_year = str(today_date.year)
+# redux_t_year = redux(t_year)
+# t_year_plus = int(t_year) + 1
+# t_year_minus = int(t_year) - 1
+# t_month = str(today_date.strftime('%m'))
+# t_day = str(today_date.strftime('%d'))
+#----------------------
 
 #Name calculations
 #----------------------
@@ -185,9 +197,7 @@ intext = interior[0] + exterior[0]
 #----------------------
 goals = calsum(str(intext))
 
-#Consult Calculations
-# day, month, year = map(int, date_entry.split('-'))
-# consult_date = datetime.date(year, month, day)
+
 
 #Results
 print()
@@ -223,13 +233,19 @@ print(f"You where born on a: {birth_dotw}")
 # print(redux_day)
 # print(date_string)
 print(f"Your Vibration is: {birth_vibration}")
+cycle(today_date, birth_vibration)
 
 #Consultation date input
 choice = input("Do you want to consult a specific date?? (y/n): ")
 choice = choice.upper()
 if choice == 'Y':
+    #Consult Date calculations
+    #----------------------
     consult_date_input = input("Escribe la fecha de consulta: DD-MM-YYYY: ")
+    consult_date = realdate(consult_date_input)
+    cycle(consult_date, birth_vibration)
+    print(f"Thank you for your consult!, Come back any time :)")
 else:
-    print(f"Thank you for your consult")
-
-#
+    #Finish
+    #----------------------
+    print(f"Thank you for your consult!, Come back any time :)")
