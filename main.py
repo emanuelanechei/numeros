@@ -164,15 +164,6 @@ birth_vibration = calsum(date_string)
 today_date = datetime.date.today()
 #----------------------
 
-#Cycle for today
-#----------------------
-# t_year = str(today_date.year)
-# redux_t_year = redux(t_year)
-# t_year_plus = int(t_year) + 1
-# t_year_minus = int(t_year) - 1
-# t_month = str(today_date.strftime('%m'))
-# t_day = str(today_date.strftime('%d'))
-#----------------------
 
 #Name calculations
 #----------------------
