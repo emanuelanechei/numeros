@@ -107,6 +107,7 @@ def datecalc(string):
 
 
 #Cycle funtions
+#-------------------------
 
 def cycle(date, birth_vibration):
     t_year = str(date.year)
@@ -127,6 +128,30 @@ def cycle(date, birth_vibration):
         print(f"From October {t_year_minus} to October {t_year}, your YEAR CYCLE is {today_year_cycle}  ")
     pass
 
+#Function to measure frequency of a list
+#-------------------------
+def CountFrequency(list):
+    # Python3 code using dict.get() to get count of each element in string
+    # res = {}
+    #
+    # for keys in list:
+    #     res[keys] = res.get(keys, 0) + 1
+    #
+    # return res
+    # naive method
+    all_freq = {}
+
+    for i in list:
+        if i in all_freq:
+            all_freq[i] += 1
+        else:
+            all_freq[i] = 1
+
+    return all_freq
+
+
+
+#-------------------------
 
 
 #-----------------USER INPUT----------------------
@@ -140,7 +165,7 @@ print("Bienvenido a numerología.io")
 print("-- -- -- -- -- -- -- -- -- --")
 print()
 
-input_full_name = input("Type your full name: ")
+input_full_name = input("Escribe tu nombre completo (como en el registro civil): ")
 date_input = input("Escribe tu fecha de nacimiento en el formato: DD-MM-YYYY: ")
 birth_date = realdate(date_input)
 birth_dotw = dotw(birth_date)
@@ -168,10 +193,16 @@ today_date = datetime.date.today()
 #Name calculations
 #----------------------
 name_count = stringcount(input_full_name)
+#----------------------
 interior_values = rem_consonants(input_full_name)
 exterior_values = rem_vowel(input_full_name)
 #----------------------
 calc_name = cypher(input_full_name)
+cypher_no_strings = calc_name.replace(" ", "")
+name_frequency = CountFrequency(cypher_no_strings)
+sorted_frequency = sorted(name_frequency.items(), reverse=True, key=lambda x: x[1])
+
+#----------------------
 calc_interior = cypher(interior_values)
 calc_exterior = cypher(exterior_values)
 #----------------------
@@ -191,13 +222,21 @@ goals = calsum(str(intext))
 
 
 #Results
+#----------------------
 print()
 print("-- Resultados de consulta --")
 print(f"{today_date}")
 print()
-print(f"Your name is: {input_full_name}")
-print(f"Your name contains {name_count} letters")
+print(f"Tu nombre es: {input_full_name}")
+print(f"Tu nombre contiene {name_count} letras")
+print("Tu nombre representado en números es el siguiente:")
 print(calc_name)
+# print(type(name_frequency))
+# print(name_frequency)
+print()
+print("Tu nombre contiene la siguiente frecuencia de números:")
+for elem in sorted_frequency:
+    print(elem[0] , " ::" , elem[1] )
 print()
 print(interior_redux)
 print(list_interior)
@@ -205,15 +244,15 @@ print(input_full_name)
 print(list_exterior)
 print(exterior_redux)
 print()
-print(f"Your INTERIOR is {interior}")
-print(f"Your EXTERIOR is {exterior}")
+print(f"Tu INTERIOR es {interior}")
+print(f"Tu EXTERIOR es {exterior}")
 # print(f" Your GOAL is {calc_goals}")
-print(f"Your GOAL is {goals}")
+print(f"Tus número de METAS es: {goals}")
 print()
 print("-- Resultados de Fecha --")
 print()
-print(f"Your birth date is: {birth_date}")
-print(f"You where born on a: {birth_dotw}")
+print(f"Naciste el: {birth_date}")
+print(f"Era un {birth_dotw}")
 # print(type(birth_date))
 # print(type(date_list))
 # print(v_year)
@@ -223,20 +262,20 @@ print(f"You where born on a: {birth_dotw}")
 # print(redux_month)
 # print(redux_day)
 # print(date_string)
-print(f"Your Vibration is: {birth_vibration}")
+print(f"Tu vibración de nacimiento es: {birth_vibration}")
 cycle(today_date, birth_vibration)
 
 #Consultation date input
-choice = input("Do you want to consult a specific date?? (y/n): ")
+choice = input("Quieres consultar tu cilo para otra fecha? (s/n): ")
 choice = choice.upper()
-if choice == 'Y':
+if choice == 'S':
     #Consult Date calculations
     #----------------------
     consult_date_input = input("Escribe la fecha de consulta: DD-MM-YYYY: ")
     consult_date = realdate(consult_date_input)
     cycle(consult_date, birth_vibration)
-    print(f"Thank you for your consult!, Come back any time :)")
+    print(f"Gracias por tu consulta :)")
 else:
     #Finish
     #----------------------
-    print(f"Thank you for your consult!, Come back any time :)")
+    print(f"Gracias por tu consulta :)")
