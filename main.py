@@ -4,6 +4,8 @@
 import functools
 import re
 import datetime
+from collections import Counter
+from heapq import nsmallest
 
 #Dictionary
 alpha = {
@@ -16,6 +18,8 @@ alpha = {
     'G':7, 'P':7, 'Y':7, 'Ý':7,
     'H':8, 'Q':8, 'Z':8,'Ž':8,
     'I':9,'Í':9, 'Ü':9, 'R':9, 'Ř':9, ' ':' '}
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 #Function to replace characters in a word with the value
 def cypher(words):
@@ -149,6 +153,37 @@ def CountFrequency(list):
 
     return all_freq
 
+#function to check excess or lack of numbers in your name_count
+
+def numberFrequency(dictionary):
+    # temp_dictionary = {'1':0, '2':0, '3':0, '4':0, '5':0, '6':0,'7':0,'8':0 ,'9':0}
+    temp_dictionary = {}
+    for i in range(1,10):
+        if str(i) in dictionary:
+            key = str(i)
+            # print("Key exists")
+            value = dictionary.get(key)
+            # print(f"This is the value found for the key {key} -> {value}")
+            temp_dictionary[i] = str(value)
+
+        else:
+            # print("Key NOT FOUND")
+            temp_dictionary[i] = '0'
+    return temp_dictionary
+#-------------------------
+#function to get top 3 frequency numbers
+def top(my_dict):
+    k = Counter(my_dict)
+    high = k.most_common(3)
+    return high
+
+#function to get bottom 3 frequency numbers
+def bottom(my_dict):
+    # ThreeLowest = nsmallest(3, my_dict, key = my_dict.get)
+    k = Counter(my_dict)
+    ThreeLowest = k.most_common()[:-3-1:-1]
+    return ThreeLowest
+
 
 
 #-------------------------
@@ -200,6 +235,9 @@ exterior_values = rem_vowel(input_full_name)
 calc_name = cypher(input_full_name)
 cypher_no_strings = calc_name.replace(" ", "")
 name_frequency = CountFrequency(cypher_no_strings)
+name_frequency_dictionary = numberFrequency(name_frequency)
+excess = top(name_frequency_dictionary)
+lack = bottom(name_frequency_dictionary)
 sorted_frequency = sorted(name_frequency.items(), reverse=True, key=lambda x: x[1])
 
 #----------------------
@@ -235,8 +273,26 @@ print(calc_name)
 # print(name_frequency)
 print()
 print("Tu nombre contiene la siguiente frecuencia de números:")
-for elem in sorted_frequency:
+# print(name_frequency)
+#confirm input is a dictionary
+# print(type(name_frequency))
+print(name_frequency_dictionary)
+print("Exceso de números:")
+print(excess)
+for elem in excess:
     print(elem[0] , " ::" , elem[1] )
+print("Carencia de números:")
+print(lack)
+for elem in lack:
+    print(elem[0] , " ::" , elem[1] )
+
+# print(sorted_frequency)
+#Sorted list of pairs = number and frequency
+# print(type(sorted_frequency))
+# for elem in sorted_frequency:
+#     print(elem[0] , " ::" , elem[1] )
+print()
+print("-- Análisis numerológico de nombre --")
 print()
 print(interior_redux)
 print(list_interior)
@@ -266,7 +322,7 @@ print(f"Tu vibración de nacimiento es: {birth_vibration}")
 cycle(today_date, birth_vibration)
 
 #Consultation date input
-choice = input("Quieres consultar tu cilo para otra fecha? (s/n): ")
+choice = input("Quieres consultar tu ciclo para otra fecha? (s/n): ")
 choice = choice.upper()
 if choice == 'S':
     #Consult Date calculations
