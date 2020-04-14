@@ -3,6 +3,7 @@
 #libraries import
 import functools
 import re
+import math
 import datetime
 from collections import Counter
 from heapq import nsmallest
@@ -224,7 +225,15 @@ def doty(calendar):
     day_of_year = calendar.timetuple().tm_yday
     return day_of_year
 
-
+def monthCycle(birth_doty, query_doty):
+    if birth_doty > query_doty:
+        x = 365 - int(birth_doty)
+        y = x + int(query_doty)
+        m_cycle = math.ceil(y/52.14)
+    else:
+        y = int(query_doty) - int(birth_doty)
+        m_cycle = math.ceil(y/52.14)
+    return m_cycle
 
 #-------------------------
 
@@ -243,12 +252,14 @@ print()
 input_full_name = input("Escribe tu nombre completo (como en el registro civil): ")
 date_input = input("Escribe tu fecha de nacimiento en el formato: DD-MM-YYYY: ")
 signature_input = input("Escribe tu firma, o lo que significa para ti: ")
+
+
+#Birth Date calculations
+#----------------------
 birth_date = realdate(date_input)
 birth_dotw = dotw(birth_date)
 birth_doty = doty(birth_date)
 
-#Birth Date calculations
-#----------------------
 v_year = str(birth_date.year)
 v_month = str(birth_date.strftime('%m'))
 v_day = str(birth_date.strftime('%d'))
@@ -315,6 +326,11 @@ exterior = calculin(exterior_redux)
 intext = interior[0] + exterior[0]
 #----------------------
 goals = calsum(str(intext))
+
+
+# ----------Cycle calculations
+# today_year_cycle = cycle(today_date, birth_vibration)
+today_month_cycle = monthCycle(birth_doty, today_doty)
 
 
 
@@ -385,6 +401,7 @@ print(f"Era un {birth_dotw}")
 # print(date_string)
 print(f"Tu vibración de nacimiento es: {birth_vibration}")
 cycle(today_date, birth_vibration)
+print(f"Te encuentras en el ciclo {today_month_cycle} de 7")
 print()
 print("Análisis de Firma: ")
 # print(calc_signature)
@@ -405,6 +422,9 @@ if choice == 'S':
     consult_date_input = input("Escribe la fecha de consulta: DD-MM-YYYY: ")
     consult_date = realdate(consult_date_input)
     cycle(consult_date, birth_vibration)
+    consult_doty = doty(consult_date)
+    consult_month_cycle = monthCycle(birth_doty, consult_doty)
+    print(f"Ciclo {consult_month_cycle} de 7")
     print(f"Gracias por tu consulta :)")
 else:
     #Finish
