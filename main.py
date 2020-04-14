@@ -223,7 +223,7 @@ def fullCharacter(dictionary):
     }
     new_dict = {}
     for i in character:
-        print(i)
+        # print(i)
         new_dict[i] = characterSum(character.get(i), dictionary)
         # print(new_dict)
     return new_dict
