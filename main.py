@@ -276,6 +276,14 @@ def monthCycle(birth_doty, query_doty):
     return m_cycle
 
 #-------------------------
+# Functions to check monthly tendencies
+def month_vibe(birth_vibe, goals, month, year):
+    redux_month = redux(month)
+    redux_year = redux(year)
+    tendency = int(birth_vibe[0]) + int(goals[0]) + int(month) + int(year)
+    vibe = redux(tendency)
+    return vibe
+
 
 
 #-----------------USER INPUT----------------------
@@ -316,7 +324,9 @@ birth_vibration = calsumdate(date_string)
 #----------------------
 today_date = datetime.date.today()
 t_year = str(today_date.year)
+t_month = str(today_date.strftime('%m'))
 today_doty = doty(today_date)
+
 #----------------------
 
 
@@ -372,7 +382,7 @@ goals = calsum(str(intext))
 # ----------Cycle calculations
 # today_year_cycle = cycle(today_date, birth_vibration)
 today_month_cycle = monthCycle(birth_doty, today_doty)
-
+today_month_tendency = month_vibe(birth_vibration, goals, t_month, t_year)
 
 
 #Results
@@ -381,6 +391,7 @@ print()
 print("-- Resultados de consulta --")
 print(f"La fecha de hoy en formato AAAA-MM-DD es: {today_date}")
 print(f"Naciste en el día {birth_doty} del año {v_year}")
+print(f"Tu natalicio es: {v_day}")
 print(f"Hoy es el día {today_doty} del año {t_year}")
 print()
 print(f"Tu nombre es: {input_full_name}")
@@ -445,6 +456,9 @@ print(f"Tu vibración de nacimiento es: {birth_vibration}")
 cycle(today_date, birth_vibration)
 print(f"Te encuentras en el ciclo de 52 días {today_month_cycle} de 7")
 print()
+print(f"Tutendencia para el mes actual ({t_month}) es: ")
+print(today_month_tendency)
+print()
 print("Análisis de Firma: ")
 # print(calc_signature)
 # print(signaturevalues_nostrings)
@@ -462,12 +476,21 @@ choice = choice.upper()
 if choice == 'S':
     #Consult Date calculations
     #----------------------
+    print()
     consult_date_input = input("Escribe la fecha de consulta: DD-MM-YYYY: ")
     consult_date = realdate(consult_date_input)
+    print()
     cycle(consult_date, birth_vibration)
     consult_doty = doty(consult_date)
     consult_month_cycle = monthCycle(birth_doty, consult_doty)
-    print(f"Ciclo {consult_month_cycle} de 7")
+    print(f"Ciclo de 52 días {consult_month_cycle} de 7")
+    print()
+    c_year = str(consult_date.year)
+    c_month = str(consult_date.strftime('%m'))
+    consult_month_tendency = month_vibe(birth_vibration, goals, c_month, c_year)
+    print(f"Tu tendencia para el mes de cosnulta ({c_month}) es: ")
+    print(consult_month_tendency)
+    print()
     print(f"Gracias por tu consulta :)")
 else:
     #Finish
