@@ -74,6 +74,37 @@ def calsum(value):
                 final = sum([int(i) for i in str(master_value)])
                 return [final, False, 0]
 
+#Function to calculate sum of string with Master check
+ #1721 -> 11 -> 2
+def calsumdate(value):
+    if master(value) == True:
+        master_value = sum([int(i) for i in str(value)])
+        return [master_value, True, value]
+    else:
+        string = str(value)
+        no_zero_string = string.replace('0', '')
+        # print(type(no_zero_string))
+        # print(no_zero_string)
+        redux = sum([int(i) for i in str(no_zero_string)])
+        # print(type(redux))
+        # print(redux)
+        # return redux
+        # redux_string = str(redux)
+        while redux > 99:
+            redux = sum([int(i) for i in str(redux)])
+        print(redux)
+        if master(redux) == True:
+            master_value = sum([int(i) for i in str(redux)])
+            return [master_value, True, redux]
+        else:
+            master_value = sum([int(i) for i in str(redux)])
+            if master(master_value) == True:
+                redux = sum([int(i) for i in str(master_value)])
+                return [master_value, True, redux]
+            else:
+                redux = sum([int(i) for i in str(master_value)])
+                return [redux, False, 0]
+
 
 #Function to remove the vowels of a string
 def rem_vowel(string):
@@ -84,7 +115,6 @@ def rem_consonants(string):
     return (re.sub("[qwrtypsdfghjklñzxcvbnmQWRTYPSDFGHJKLÑZXCVBNMčďňřšťžČĎŇŘŠŤŽ]","",string))
 
 #Funcion to reduce each string value
-
 def topo(list):
     for i in list:
         result = [redux(i) for i in list]
@@ -279,7 +309,7 @@ redux_month = redux(v_month)
 redux_day = redux(v_day)
 #----------------------
 date_string = str(redux_year)+str(redux_month)+str(redux_day)
-birth_vibration = calsum(date_string)
+birth_vibration = calsumdate(date_string)
 #----------------------
 
 #Today calculations
@@ -413,7 +443,7 @@ print(f"Era un {birth_dotw}")
 # print(date_string)
 print(f"Tu vibración de nacimiento es: {birth_vibration}")
 cycle(today_date, birth_vibration)
-print(f"Te encuentras en el ciclo mensual {today_month_cycle} de 7")
+print(f"Te encuentras en el ciclo de 52 días {today_month_cycle} de 7")
 print()
 print("Análisis de Firma: ")
 # print(calc_signature)
