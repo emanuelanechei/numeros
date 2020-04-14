@@ -59,10 +59,20 @@ def calsum(value):
         suma  = sum([int(i) for i in value])
         if master(suma) == True:
             master_value = sum([int(i) for i in str(suma)])
-            return [master_value, True, suma]
+            if master(master_value) == True:
+                temp = sum([int(i) for i in str(master_value)])
+                return [temp, True, master_value]
+            else:
+                temp = sum([int(i) for i in str(suma)])
+                return [temp, False, 0]
         else:
-            final = sum([int(i) for i in str(suma)])
-            return [final, False, 0]
+            master_value = sum([int(i) for i in str(suma)])
+            if master(master_value) == True:
+                temp = sum([int(i) for i in str(master_value)])
+                return [temp, True, master_value]
+            else:
+                final = sum([int(i) for i in str(master_value)])
+                return [final, False, 0]
 
 
 #Function to remove the vowels of a string
@@ -125,12 +135,12 @@ def cycle(date, birth_vibration):
         pre_today_year_cycle = int(birth_vibration[0]) + int(redux_t_year) + 1
         # print(f" Pre en NOV/DIC: {pre_today_year_cycle}")
         today_year_cycle = redux(pre_today_year_cycle)
-        print(f"From October {t_year} to October {t_year_plus}, your YEAR CYCLE is {today_year_cycle}  ")
+        print(f"Desde Octubre {t_year} hasta Octubre {t_year_plus}, tu ciclo anual es: {today_year_cycle}  ")
     else:
         pre_today_year_cycle = int(birth_vibration[0]) + int(redux_t_year)
         # print(f" Pre no -> NOV/DIC: {pre_today_year_cycle}")
         today_year_cycle = redux(pre_today_year_cycle)
-        print(f"From October {t_year_minus} to October {t_year}, your YEAR CYCLE is {today_year_cycle}  ")
+        print(f"Desde Octubre {t_year_minus} hasta Octubre {t_year}, tu ciclo anual es: {today_year_cycle}  ")
     pass
 
 #Function to measure frequency of a list
@@ -297,7 +307,8 @@ sorted_frequency = sorted(name_frequency.items(), reverse=True, key=lambda x: x[
 
 #-----Signature calculations
 calc_signature = cypher(signature_input)
-signature = calsum(calc_signature)
+signaturevalues_nostrings = calc_signature.replace(" ", "")
+signature = calsum(signaturevalues_nostrings)
 
 #------Destiny calculations
 destiny = birth_vibration
@@ -405,7 +416,8 @@ print(f"Te encuentras en el ciclo {today_month_cycle} de 7")
 print()
 print("Análisis de Firma: ")
 # print(calc_signature)
-print(signature)
+# print(signaturevalues_nostrings)
+print(f" Tu firma tiene una vibración: {signature[0]}")
 print()
 print("-- Análisis de Destino --")
 print(f"Tu posible destino es: {destiny[0]}")
