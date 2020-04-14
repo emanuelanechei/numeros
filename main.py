@@ -21,15 +21,6 @@ alpha = {
 
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-character = {
-    'mental' : [1,7,8,9],
-    'emotional' : [2,3,6,9],
-    'intuitive' : [2,7,9],
-    'artistic' : [3,6,9],
-    'scientific' : [1,4,5,7,8],
-    'business' : [2,4,8],
-    'physical' : [4,5,8]
-}
 
 #Function to replace characters in a word with the value
 def cypher(words):
@@ -117,7 +108,6 @@ def realdate(string):
 def datecalc(string):
     string = string.split('-')
     return string
-
 
 
 #Cycle funtions
@@ -228,8 +218,15 @@ def fullCharacter(dictionary):
         # print(new_dict)
     return new_dict
 
+# Functions to analyze 52 day cycles
+#-------------------------
+def doty(calendar):
+    day_of_year = calendar.timetuple().tm_yday
+    return day_of_year
 
 
+
+#-------------------------
 
 
 #-----------------USER INPUT----------------------
@@ -245,8 +242,10 @@ print()
 
 input_full_name = input("Escribe tu nombre completo (como en el registro civil): ")
 date_input = input("Escribe tu fecha de nacimiento en el formato: DD-MM-YYYY: ")
+signature_input = input("Escribe tu firma, o lo que significa para ti: ")
 birth_date = realdate(date_input)
 birth_dotw = dotw(birth_date)
+birth_doty = doty(birth_date)
 
 #Birth Date calculations
 #----------------------
@@ -265,6 +264,8 @@ birth_vibration = calsum(date_string)
 #Today calculations
 #----------------------
 today_date = datetime.date.today()
+t_year = str(today_date.year)
+today_doty = doty(today_date)
 #----------------------
 
 
@@ -282,6 +283,17 @@ name_frequency_dictionary = numberFrequency(name_frequency)
 excess = top(name_frequency_dictionary)
 lack = bottom(name_frequency_dictionary)
 sorted_frequency = sorted(name_frequency.items(), reverse=True, key=lambda x: x[1])
+
+#-----Signature calculations
+calc_signature = cypher(signature_input)
+signature = calsum(calc_signature)
+
+#------Destiny calculations
+destiny = birth_vibration
+temp_destiny = int(destiny[0])+int(signature[0])
+temp_destiny_string = str(temp_destiny)
+real_destiny = calsum(temp_destiny_string)
+
 #-----Character calculations
 
 your_character = fullCharacter(name_frequency_dictionary)
@@ -310,7 +322,9 @@ goals = calsum(str(intext))
 #----------------------
 print()
 print("-- Resultados de consulta --")
-print(f"{today_date}")
+print(f"La fecha de hoy en formato AAAA-MM-DD es: {today_date}")
+print(f"Naciste en el día {birth_doty} del año {v_year}")
+print(f"Hoy es el día {today_doty} del año {t_year}")
 print()
 print(f"Tu nombre es: {input_full_name}")
 print(f"Tu nombre contiene {name_count} letras")
@@ -371,6 +385,16 @@ print(f"Era un {birth_dotw}")
 # print(date_string)
 print(f"Tu vibración de nacimiento es: {birth_vibration}")
 cycle(today_date, birth_vibration)
+print()
+print("Análisis de Firma: ")
+# print(calc_signature)
+print(signature)
+print()
+print("-- Análisis de Destino --")
+print(f"Tu posible destino es: {destiny[0]}")
+print(f"Tu destino REAL es: {real_destiny[0]}")
+print()
+
 
 #Consultation date input
 choice = input("Quieres consultar tu ciclo para otra fecha? (s/n): ")
