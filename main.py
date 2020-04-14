@@ -21,6 +21,16 @@ alpha = {
 
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
+character = {
+    'mental' : [1,7,8,9],
+    'emotional' : [2,3,6,9],
+    'intuitive' : [2,7,9],
+    'artistic' : [3,6,9],
+    'scientific' : [1,4,5,7,8],
+    'business' : [2,4,8],
+    'physical' : [4,5,8]
+}
+
 #Function to replace characters in a word with the value
 def cypher(words):
     result = words.upper()
@@ -156,7 +166,6 @@ def CountFrequency(list):
 #function to check excess or lack of numbers in your name_count
 
 def numberFrequency(dictionary):
-    # temp_dictionary = {'1':0, '2':0, '3':0, '4':0, '5':0, '6':0,'7':0,'8':0 ,'9':0}
     temp_dictionary = {}
     for i in range(1,10):
         if str(i) in dictionary:
@@ -164,11 +173,11 @@ def numberFrequency(dictionary):
             # print("Key exists")
             value = dictionary.get(key)
             # print(f"This is the value found for the key {key} -> {value}")
-            temp_dictionary[i] = str(value)
+            temp_dictionary[i] = value
 
         else:
             # print("Key NOT FOUND")
-            temp_dictionary[i] = '0'
+            temp_dictionary[i] = 0
     return temp_dictionary
 #-------------------------
 #function to get top 3 frequency numbers
@@ -187,6 +196,40 @@ def bottom(my_dict):
 
 
 #-------------------------
+
+# Functions to analyze characters
+#-------------------------
+#Function to sum the values for each key on the list
+def characterSum(list, dict):
+    sum = 0
+    for i in list:
+        # print(f"Key to look for: {i}")
+        # print(f" Value: {dict.get(i)}")
+        temp = dict.get(i)
+        # print(f"Temp is: {type(temp)}")
+        sum = sum + temp
+        # print(f"Sum is: {type(sum)}")
+    return sum
+
+def fullCharacter(dictionary):
+    character = {
+        'mental' : [1,7,8,9],
+        'emotional' : [2,3,6,9],
+        'intuitive' : [2,7,9],
+        'artistic' : [3,6,9],
+        'scientific' : [1,4,5,7,8],
+        'business' : [2,4,8],
+        'physical' : [4,5,8]
+    }
+    new_dict = {}
+    for i in character:
+        print(i)
+        new_dict[i] = characterSum(character.get(i), dictionary)
+        # print(new_dict)
+    return new_dict
+
+
+
 
 
 #-----------------USER INPUT----------------------
@@ -239,6 +282,10 @@ name_frequency_dictionary = numberFrequency(name_frequency)
 excess = top(name_frequency_dictionary)
 lack = bottom(name_frequency_dictionary)
 sorted_frequency = sorted(name_frequency.items(), reverse=True, key=lambda x: x[1])
+#-----Character calculations
+
+your_character = fullCharacter(name_frequency_dictionary)
+character_reading = top(your_character)
 
 #----------------------
 calc_interior = cypher(interior_values)
@@ -286,6 +333,10 @@ print(lack)
 for elem in lack:
     print(elem[0] , " ::" , elem[1] )
 
+print()
+print(f"Tu caracter es: ")
+print(your_character)
+print(character_reading)
 # print(sorted_frequency)
 #Sorted list of pairs = number and frequency
 # print(type(sorted_frequency))
